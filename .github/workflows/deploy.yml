@@ -37,13 +37,13 @@ jobs:
           : > stored_procs/migrations/config/connections.toml
           cat > stored_procs/migrations/config/connections.toml <<EOF
           [snowflake]
-          account   = "${{ secrets.ACCOUNT }}"
-          user      = "${{ secrets.USER }}"
-          password  = "${{ secrets.PASSWORD }}"
-          role      = "${{ secrets.ROLE }}"
-          warehouse = "${{ secrets.WAREHOUSE }}"
-          database  = "BRONZE"
-          schema    = "TEST"
+          SNOWFLAKE_ACCOUNT: ${{ secrets.ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.PASSWORD }}
+          SNOWFLAKE_ROLE: ACCOUNTADMIN
+          SNOWFLAKE_WAREHOUSE: COMPUTE_WH
+          SNOWFLAKE_DATABASE: BRONZE
+          SNOWFLAKE_SCHEMA: TEST
           EOF
           chmod 600 stored_procs/migrations/config/connections.toml
 
@@ -77,9 +77,9 @@ jobs:
     if: github.ref_name == 'test'
     environment: test
     env:
-      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ACCOUNT: ${{ secrets.ACCOUNT }}
+      SNOWFLAKE_USER: ${{ secrets.USER }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.PASSWORD }}
       SNOWFLAKE_ROLE: ACCOUNTADMIN
       SNOWFLAKE_WAREHOUSE: COMPUTE_WH
       SNOWFLAKE_DATABASE: BRONZE
@@ -108,11 +108,11 @@ jobs:
           : > stored_procs/migrations/config/connections.toml
           cat > stored_procs/migrations/config/connections.toml <<EOF
           [snowflake]
-          account   = "${{ secrets.SNOWFLAKE_ACCOUNT }}"
-          user      = "${{ secrets.SNOWFLAKE_USER }}"
-          password  = "${{ secrets.SNOWFLAKE_PASSWORD }}"
-          role      = "${{ secrets.SNOWFLAKE_ROLE }}"
-          warehouse = "${{ secrets.SNOWFLAKE_WAREHOUSE }}"
+          account   = "${{ secrets.ACCOUNT }}"
+          user      = "${{ secrets.USER }}"
+          password  = "${{ secrets.PASSWORD }}"
+          role      = "${{ secrets.ROLE }}"
+          warehouse = "${{ secrets.WAREHOUSE }}"
           database  = "BRONZE"
           schema    = "TEST"
           EOF
@@ -147,9 +147,9 @@ jobs:
     if: github.ref_name == 'main'
     environment: prod
     env:
-      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ACCOUNT: ${{ secrets.ACCOUNT }}
+      SNOWFLAKE_USER: ${{ secrets.USER }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.PASSWORD }}
       SNOWFLAKE_ROLE: ACCOUNTADMIN
       SNOWFLAKE_WAREHOUSE: COMPUTE_WH
       SNOWFLAKE_DATABASE: BRONZE
@@ -179,11 +179,11 @@ jobs:
           : > stored_procs/migrations/config/connections.toml
           cat > stored_procs/migrations/config/connections.toml <<EOF
           [snowflake]
-          account   = "${{ secrets.SNOWFLAKE_ACCOUNT }}"
-          user      = "${{ secrets.SNOWFLAKE_USER }}"
-          password  = "${{ secrets.SNOWFLAKE_PASSWORD }}"
-          role      = "${{ secrets.SNOWFLAKE_ROLE }}"
-          warehouse = "${{ secrets.SNOWFLAKE_WAREHOUSE }}"
+          account   = "${{ secrets.ACCOUNT }}"
+          user      = "${{ secrets.USER }}"
+          password  = "${{ secrets.PASSWORD }}"
+          role      = "${{ secrets.ROLE }}"
+          warehouse = "${{ secrets.WAREHOUSE }}"
           database  = "BRONZE"
           schema    = "TEST"
           EOF
