@@ -58,18 +58,18 @@ jobs:
 
       - name: Deploy nowww
         run: |
-          for layer in bronze silver gold; do
-            echo "Deploying stored_procs layer in Dev Env..."
-            schemachange deploy \
-              -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
-              --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
-              --config-file-name schemachange-config.yml \
-              --connections-file-path "$GITHUB_WORKSPACE/stored_procs/migrations/config/connections.toml" \
-              --connection-name snowflake \
-              --change-history-table "stored_procs.DEV.CHANGE_HISTORY" \
-              --query-tag "schemachange-stored_procs" \
-              --verbose
-          done
+
+          echo "Deploying stored_procs layer in Dev Env..."
+          schemachange deploy \
+            -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
+            --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
+            --config-file-name schemachange-config.yml \
+            --connections-file-path "$GITHUB_WORKSPACE/stored_procs/migrations/config/connections.toml" \
+            --connection-name snowflake \
+            --change-history-table "BRONZE.DEV.CHANGE_HISTORY" \
+            --query-tag "schemachange-stored_procs" \
+            --verbose
+          
 
   deploy-test:
     runs-on: ubuntu-latest
