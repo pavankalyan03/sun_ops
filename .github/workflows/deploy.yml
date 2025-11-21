@@ -37,13 +37,13 @@ jobs:
           : > stored_procs/migrations/config/connections.toml
           cat > stored_procs/migrations/config/connections.toml <<EOF
           [snowflake]
-          SNOWFLAKE_ACCOUNT: ${{ secrets.ACCOUNT }}
-          SNOWFLAKE_USER: ${{ secrets.USER }}
-          SNOWFLAKE_PASSWORD: ${{ secrets.PASSWORD }}
-          SNOWFLAKE_ROLE: ACCOUNTADMIN
-          SNOWFLAKE_WAREHOUSE: COMPUTE_WH
-          SNOWFLAKE_DATABASE: BRONZE
-          SNOWFLAKE_SCHEMA: TEST
+          SNOWFLAKE_ACCOUNT = ${{ secrets.ACCOUNT }}
+          SNOWFLAKE_USER = ${{ secrets.USER }}
+          SNOWFLAKE_PASSWORD = ${{ secrets.PASSWORD }}
+          SNOWFLAKE_ROLE = ACCOUNTADMIN
+          SNOWFLAKE_WAREHOUSE = COMPUTE_WH
+          SNOWFLAKE_DATABASE = BRONZE
+          SNOWFLAKE_SCHEMA = TEST
           EOF
           chmod 600 stored_procs/migrations/config/connections.toml
 
