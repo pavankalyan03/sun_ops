@@ -27,7 +27,7 @@ jobs:
           cat <<EOF > connections.toml
           [snowflake]
           account = "${{ secrets.ACCOUNT }}"
-          user = "${{ secrets.USER }}"
+          user = "PROFESSOR"
           password = "${{ secrets.PASSWORD }}"
           role = "${{ secrets.ROLE }}"
           warehouse = "${{ secrets.WAREHOUSE }}"
