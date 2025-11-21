@@ -5,6 +5,12 @@ connections-file-path: './connections.toml'
 connection-name: snowflake
 change-history-table: CHANGE_HISTORY
 create-change-history-table: true
+vars:
+  CUSTOMER_TABLE: 'CUSTOMERS'
+  RETAILERS_TABLE: 'RETAILERS'
+  ORDERS_TABLE: 'ORDERS'
+  DATABASE : BRONZE
+  SCHEMA : DEV
 autocommit: false
 verbose: true
 dry-run: false

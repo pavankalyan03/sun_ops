@@ -43,4 +43,4 @@ jobs:
 
 
       - name: Run schemachange on DEV
-        run: schemachange deploy -c schemachange-config.yml --change-history-table BRONZE.DEV.CHANGE_HISTORY -v vars.yml --query-tag "schemachange-dev"
+        run: schemachange deploy -c schemachange-config.yml --change-history-table BRONZE.DEV.CHANGE_HISTORY --query-tag "schemachange-dev"
