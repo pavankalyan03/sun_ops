@@ -37,11 +37,11 @@ jobs:
           : > stored_procs/migrations/config/connections.toml
           cat > stored_procs/migrations/config/connections.toml <<EOF
           [snowflake]
-          account   = "${{ secrets.SNOWFLAKE_ACCOUNT }}"
-          user      = "${{ secrets.SNOWFLAKE_USER }}"
-          password  = "${{ secrets.SNOWFLAKE_PASSWORD }}"
-          role      = "${{ secrets.SNOWFLAKE_ROLE }}"
-          warehouse = "${{ secrets.SNOWFLAKE_WAREHOUSE }}"
+          account   = "${{ secrets.ACCOUNT }}"
+          user      = "${{ secrets.USER }}"
+          password  = "${{ secrets.PASSWORD }}"
+          role      = "${{ secrets.ROLE }}"
+          warehouse = "${{ secrets.WAREHOUSE }}"
           database  = "BRONZE"
           schema    = "TEST"
           EOF
