@@ -45,6 +45,7 @@ jobs:
             -m "$GITHUB_WORKSPACE/stored_procs/migrations/scripts" \
             --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
             --config-file-name schemachange-config.yml \
+            -a OMRXSUT-KAB47924 \
             -u PROFESSOR \
             --snowflake-private-key-path "$GITHUB_WORKSPACE/keys/rsa_key.p8" \
             -c "BRONZE.DEV.CHANGE_HISTORY" \
