@@ -42,10 +42,12 @@ jobs:
           echo "Deploying stored_procs layer in Dev Env..."
           schemachange deploy \
             -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
+            -m "$GITHUB_WORKSPACE/stored_procs/migrations/scripts" \
             --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
             --config-file-name schemachange-config.yml \
-            --snowflake-private-key-path $GITHUB_WORKSPACE/keys/rsa_key.p8 \
-            --change-history-table "BRONZE.DEV.CHANGE_HISTORY" \
+            -u PROFESSOR \
+            --snowflake-private-key-path "$GITHUB_WORKSPACE/keys/rsa_key.p8" \
+            -c "BRONZE.DEV.CHANGE_HISTORY" \
             --query-tag "schemachange-stored_procs" \
 
           
