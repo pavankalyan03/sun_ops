@@ -8,6 +8,14 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  account: ${{ secrets.ACCOUNT }}
+  user: ${{ secrets.USER }}
+  role: ACCOUNTADMIN
+  warehouse: COMPUTE_WH
+  database: BRONZE
+  schema: DEV
+
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest

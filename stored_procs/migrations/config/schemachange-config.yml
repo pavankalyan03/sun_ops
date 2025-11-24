@@ -14,8 +14,8 @@ autocommit: true
 
 snowflake:
 # Snowflake connection parameters (these can also come from connections.toml or environment variables)
-account: ${{ secrets.ACCOUNT }}
-user: ${{ secrets.USER }}
+# account: ${{ secrets.ACCOUNT }}
+# user: ${{ secrets.USER }}
 role: ACCOUNTADMIN
 warehouse: COMPUTE_WH
 database: BRONZE
