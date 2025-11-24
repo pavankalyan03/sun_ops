@@ -30,7 +30,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install schemachange
 
-      - name: Write connections for bronze/silver/gold
+      - name: Write connections for Sotred_Procs
         run: |
           # bronze
           mkdir -p stored_procs/migrations/config
@@ -39,7 +39,6 @@ jobs:
           [snowflake]
           SNOWFLAKE_ACCOUNT = ${{ secrets.ACCOUNT }}
           SNOWFLAKE_USER = ${{ secrets.USER }}
-          SNOWFLAKE_PASSWORD = ${{ secrets.PASSWORD }}
           SNOWFLAKE_ROLE = ACCOUNTADMIN
           SNOWFLAKE_WAREHOUSE = COMPUTE_WH
           SNOWFLAKE_DATABASE = BRONZE
@@ -66,6 +65,7 @@ jobs:
             --config-file-name schemachange-config.yml \
             --connections-file-path "$GITHUB_WORKSPACE/stored_procs/migrations/config/connections.toml" \
             --connection-name snowflake \
+            --snowflake-private-key-file "$GITHUB_WORKSPACE/stored_procs/migrations/config/rsa_key.p8 \
             --change-history-table "BRONZE.DEV.CHANGE_HISTORY" \
             --query-tag "schemachange-stored_procs" \
             --verbose
