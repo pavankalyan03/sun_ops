@@ -8,14 +8,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  account: ${{ secrets.ACCOUNT }}
-  user: ${{ secrets.USER }}
-  role: ACCOUNTADMIN
-  warehouse: COMPUTE_WH
-  database: BRONZE
-  schema: DEV
-
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
@@ -67,6 +59,9 @@ jobs:
         run: |
 
           echo "Deploying stored_procs layer in Dev Env..."
+          export SNOWFLAKE_ACCOUNT= ${{ secrets.ACCOUNT }}
+          export SNOWFLAKE_USER= ${{ secrets.USER }}
+          export SNOWFLAKE_PRIVATE_KEY_PATH="~/.ssh/rsa_key.p8"
           schemachange deploy \
             -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
             --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
