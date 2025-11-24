@@ -7,8 +7,6 @@ vars:
   ORDERS_TABLE: 'ORDERS'
   DATABASE : BRONZE
   SCHEMA : DEV
-  secrets:
-    CUSTOMER_SECRET: 'super_secret_value'
 
 
 create-change-history-table: true

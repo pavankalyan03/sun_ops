@@ -65,7 +65,7 @@ jobs:
             --config-file-name schemachange-config.yml \
             --change-history-table "BRONZE.DEV.CHANGE_HISTORY" \
             --query-tag "schemachange-stored_procs" \
-            --verbose
+
           
 
   deploy-test:
