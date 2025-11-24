@@ -1,14 +1,14 @@
 config-version: 2
 
+schemachange:
 
-vars:
-  CUSTOMER_TABLE: 'CUSTOMERS'
-  RETAILERS_TABLE: 'RETAILERS'
-  ORDERS_TABLE: 'ORDERS'
-  DATABASE : BRONZE
-  SCHEMA : DEV
+  vars:
+    CUSTOMER_TABLE: 'CUSTOMERS'
+    RETAILERS_TABLE: 'RETAILERS'
+    ORDERS_TABLE: 'ORDERS'
+    DATABASE : BRONZE
+    SCHEMA : DEV
 
-
-
-create-change-history-table: true
-autocommit: true
+  create-change-history-table: true
+  change-history-table: 'BRONZE.DEV.CHANGE_HISTORY'
+  autocommit: true
