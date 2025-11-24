@@ -36,6 +36,12 @@ jobs:
       #       --config-folder stored_procs/migrations/config \
       #       --config-file-name schemachange-config.yml
 
+      - name: Create private key file
+        run: |
+          echo "${{ secrets.PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+
+
       - name: Deploy nowww
         run: |
 
@@ -45,9 +51,7 @@ jobs:
             -m "$GITHUB_WORKSPACE/stored_procs/migrations/scripts" \
             --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
             --config-file-name schemachange-config.yml \
-            -a OMRXSUT-KAB47924 \
-            -u PROFESSOR \
-            --snowflake-private-key-path "$GITHUB_WORKSPACE/keys/rsa_key.pem" \
+            --snowflake-private-key-path "/private_key.pem" \
             --query-tag "schemachange-stored_procs" \
 
           
