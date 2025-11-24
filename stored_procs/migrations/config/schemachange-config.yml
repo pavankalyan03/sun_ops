@@ -8,6 +8,12 @@ schemachange:
     ORDERS_TABLE: 'ORDERS'
     DATABASE : BRONZE
     SCHEMA : DEV
+    RETAILERS_TABLE: "RETAILERS"
+    ORDERS_TABLE: "ORDERS"
+    LOG_TABLE: "PROCESS_LOGS"
+    DEFAULT_STATUS: "PENDING"
+    CREATED_BY: "SYSTEM"
+
 
   create-change-history-table: true
   change-history-table: 'BRONZE.DEV.CHANGE_HISTORY'
