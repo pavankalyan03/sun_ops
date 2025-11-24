@@ -13,6 +13,7 @@ schemachange:
     LOG_TABLE: "PROCESS_LOGS"
     DEFAULT_STATUS: "PENDING"
     CREATED_BY: "SYSTEM"
+    CLIENT_PREFIX: "HHLI"
 
 
   create-change-history-table: true
