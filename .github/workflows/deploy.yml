@@ -47,7 +47,7 @@ jobs:
             --config-file-name schemachange-config.yml \
             -a OMRXSUT-KAB47924 \
             -u PROFESSOR \
-            --snowflake-private-key-path "$GITHUB_WORKSPACE/keys/rsa_key.p8" \
+            --snowflake-private-key-path "$GITHUB_WORKSPACE/keys/rsa_key.pem" \
             -c "BRONZE.DEV.CHANGE_HISTORY" \
             --query-tag "schemachange-stored_procs" \
 
