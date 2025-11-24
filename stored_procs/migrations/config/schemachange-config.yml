@@ -13,18 +13,9 @@ create-change-history-table: true
 autocommit: true
 
 snowflake:
-# Snowflake connection parameters (these can also come from connections.toml or environment variables)
-# account: ${{ secrets.ACCOUNT }}
-# user: ${{ secrets.USER }}
-role: ACCOUNTADMIN
-warehouse: COMPUTE_WH
-database: BRONZE
-schema: DEV
+  role: ACCOUNTADMIN
+  warehouse: COMPUTE_WH
+  database: BRONZE
+  schema: DEV
 
-# Authentication parameters (optional, based on auth method)
-# authenticator: 'snowflake_jwt'  # snowflake, oauth, externalbrowser, snowflake_jwt, or okta URL
-# private-key-path: '~/rsa_key.p8'
-
-# Additional Snowflake Python Connector parameters
-# Any valid connector parameter can be specified here
-client-session-keep-alive: true
+  client-session-keep-alive: true

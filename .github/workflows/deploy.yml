@@ -14,10 +14,6 @@ jobs:
 
     if: github.ref_name == 'dev'
     environment: dev
-
-    env:
-      account: ${{ secrets.ACCOUNT }}
-      user: ${{ secrets.USER }}
     
     name: Deploy to DEV
     steps:
@@ -34,36 +30,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install schemachange
 
-      - name: Write connections for Sotred_Procs
-        run: |
-          # bronze
-          mkdir -p stored_procs/migrations/config
-          : > stored_procs/migrations/config/connections.toml
-          cat > stored_procs/migrations/config/connections.toml <<EOF
-          [snowflake]
-          SNOWFLAKE_ACCOUNT = ${{ secrets.ACCOUNT }}
-          SNOWFLAKE_USER = ${{ secrets.USER }}
-          SNOWFLAKE_ROLE = ACCOUNTADMIN
-          SNOWFLAKE_WAREHOUSE = COMPUTE_WH
-          SNOWFLAKE_DATABASE = BRONZE
-          SNOWFLAKE_SCHEMA = TEST
-          EOF
-          chmod 600 stored_procs/migrations/config/connections.toml
-
-        
-
-      - name: Debug connections.toml content per layer
-        run: |
-          for layer in bronze silver gold; do
-            echo "connections.toml for stored_procs:"
-            cat "$GITHUB_WORKSPACE/stored_procs/migrations/config/connections.toml"
-          done
-
       - name: Deploy nowww
         run: |
 
           echo "Deploying stored_procs layer in Dev Env..."
-          export SNOWFLAKE_PRIVATE_KEY_PATH="~/.ssh/rsa_key.p8"
+          export SNOWFLAKE_PRIVATE_KEY_PATH= ~/.ssh/rsa_key.p8
           schemachange deploy \
             -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
             --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
