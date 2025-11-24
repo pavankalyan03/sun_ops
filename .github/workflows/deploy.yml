@@ -61,7 +61,7 @@ jobs:
             -m "$GITHUB_WORKSPACE/stored_procs/migrations/scripts" \
             --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
             --config-file-name schemachange-config.yml \
-            --snowflake-private-key-path "/private_key.pem" \
+            --snowflake-private-key-path private_key.pem \
             --query-tag "schemachange-stored_procs" \
 
           
