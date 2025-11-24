@@ -9,5 +9,6 @@ vars:
   SCHEMA : DEV
 
 
+
 create-change-history-table: true
 autocommit: true
