@@ -11,11 +11,3 @@ vars:
 
 create-change-history-table: true
 autocommit: true
-
-snowflake:
-  role: ACCOUNTADMIN
-  warehouse: COMPUTE_WH
-  database: BRONZE
-  schema: DEV
-
-  client-session-keep-alive: true
