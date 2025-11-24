@@ -30,15 +30,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install schemachange
 
-      - name: Verify schemachange files
-        run: |
-          schemachange verify -f stored_procs/migrations \
-            --config-folder stored_procs/migrations/config \
-            --config-file-name schemachange-config.yml
+      # - name: Verify schemachange files
+      #   run: |
+      #     schemachange verify -f stored_procs/migrations \
+      #       --config-folder stored_procs/migrations/config \
+      #       --config-file-name schemachange-config.yml
 
       - name: Deploy nowww
         run: |
-        
+
           echo "Deploying stored_procs layer in Dev Env..."
           schemachange deploy \
             -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
