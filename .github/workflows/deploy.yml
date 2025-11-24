@@ -34,11 +34,11 @@ jobs:
         run: |
 
           echo "Deploying stored_procs layer in Dev Env..."
-          export SNOWFLAKE_PRIVATE_KEY_PATH= ~/.ssh/rsa_key.p8
           schemachange deploy \
             -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
             --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
             --config-file-name schemachange-config.yml \
+            --snowflake-private-key-path $GITHUB_WORKSPACE/keys/rsa_key.p8 \
             --change-history-table "BRONZE.DEV.CHANGE_HISTORY" \
             --query-tag "schemachange-stored_procs" \
 
