@@ -63,9 +63,6 @@ jobs:
             -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
             --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
             --config-file-name schemachange-config.yml \
-            --connections-file-path "$GITHUB_WORKSPACE/stored_procs/migrations/config/connections.toml" \
-            --connection-name snowflake \
-            --snowflake-private-key-file "$GITHUB_WORKSPACE/stored_procs/migrations/config/rsa_key.p8" \
             --change-history-table "BRONZE.DEV.CHANGE_HISTORY" \
             --query-tag "schemachange-stored_procs" \
             --verbose
