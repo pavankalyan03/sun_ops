@@ -14,6 +14,10 @@ jobs:
 
     if: github.ref_name == 'dev'
     environment: dev
+
+    env:
+      account: ${{ secrets.ACCOUNT }}
+      user: ${{ secrets.USER }}
     
     name: Deploy to DEV
     steps:
@@ -59,8 +63,6 @@ jobs:
         run: |
 
           echo "Deploying stored_procs layer in Dev Env..."
-          export SNOWFLAKE_ACCOUNT= ${{ secrets.ACCOUNT }}
-          export SNOWFLAKE_USER= ${{ secrets.USER }}
           export SNOWFLAKE_PRIVATE_KEY_PATH="~/.ssh/rsa_key.p8"
           schemachange deploy \
             -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
