@@ -15,6 +15,8 @@ var sql = `
     FROM {{ target_database }}.{{ target_schema }}.{{ client_prefix }}_RAW_PAYMENTS
 `;
 
+
+
 snowflake.execute({ sqlText: sql });
 return 'Client1 payments processed using flag: {{ special_flag }}';
 $$;

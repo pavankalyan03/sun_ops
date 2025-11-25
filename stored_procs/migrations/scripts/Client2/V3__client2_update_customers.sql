@@ -1,4 +1,6 @@
 
+
+
 CREATE OR REPLACE PROCEDURE {{ target_database }}.{{ target_schema }}.{{ client_prefix }}_UPDATE_CUSTOMERS()
 RETURNS STRING
 LANGUAGE JAVASCRIPT
@@ -13,6 +15,8 @@ var sql = `
             ELSE 'BRONZE'
         END
 `;
+
+
 
 snowflake.execute({ sqlText: sql });
 return 'Client2 customers updated using revenue thresholds.';

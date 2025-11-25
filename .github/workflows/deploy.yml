@@ -104,7 +104,7 @@ jobs:
 
           echo "Deploying Client1..."
           schemachange deploy \
-            -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
+            -f "$GITHUB_WORKSPACE/stored_procs/migrations/scripts/Client1" \
             -m "$GITHUB_WORKSPACE/stored_procs/migrations/scripts/Client1" \
             --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
             --config-file-name client1-config.yml \
@@ -121,7 +121,7 @@ jobs:
 
           echo "Deploying Client2..."
           schemachange deploy \
-            -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
+            -f "$GITHUB_WORKSPACE/stored_procs/migrations/scripts/Client2" \
             -m "$GITHUB_WORKSPACE/stored_procs/migrations/scripts/Client2" \
             --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
             --config-file-name client2-config.yml \
@@ -138,7 +138,7 @@ jobs:
 
           echo "Deploying Client3..."
           schemachange deploy \
-            -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
+            -f "$GITHUB_WORKSPACE/stored_procs/migrations/scripts/Client3" \
             -m "$GITHUB_WORKSPACE/stored_procs/migrations/scripts/Client3" \
             --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
             --config-file-name client3-config.yml \
