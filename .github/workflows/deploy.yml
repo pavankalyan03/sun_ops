@@ -23,9 +23,7 @@ jobs:
     name: Deploy to DEV
 
     steps:
-      # ============================================================
-      # Basic setup
-      # ============================================================
+
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -47,9 +45,6 @@ jobs:
           chmod 600 private_key.pem
 
 
-      # ============================================================
-      # Detect changed folders robustly
-      # ============================================================
       - name: Detect changed folders
         id: detect
         run: |
@@ -104,12 +99,8 @@ jobs:
           done
 
 
-
-      # ============================================================
-      # Deploy for each individual client (only if that folder changed)
-      # ============================================================
       - name: Deploy Client1
-        if: contains(steps.detect.outputs.folders, 'Client1') || contains(steps.detect.outputs.folders, 'Common_stored_procs')
+        if: contains(steps.detect.outputs.folders, 'Client1')
         run: |
           CONFIG="$GITHUB_WORKSPACE/stored_procs/migrations/config/client1-config.yml"
           if [ ! -f "$CONFIG" ]; then
@@ -126,7 +117,7 @@ jobs:
             --snowflake-private-key-path private_key.pem
 
       - name: Deploy Client2
-        if: contains(steps.detect.outputs.folders, 'Client2') || contains(steps.detect.outputs.folders, 'Common_stored_procs')
+        if: contains(steps.detect.outputs.folders, 'Client2')
         run: |
           CONFIG="$GITHUB_WORKSPACE/stored_procs/migrations/config/client2-config.yml"
           if [ ! -f "$CONFIG" ]; then
@@ -143,7 +134,7 @@ jobs:
             --snowflake-private-key-path private_key.pem
 
       - name: Deploy Client3
-        if: contains(steps.detect.outputs.folders, 'Client3') || contains(steps.detect.outputs.folders, 'Common_stored_procs')
+        if: contains(steps.detect.outputs.folders, 'Client3')
         run: |
           CONFIG="$GITHUB_WORKSPACE/stored_procs/migrations/config/client3-config.yml"
           if [ ! -f "$CONFIG" ]; then
