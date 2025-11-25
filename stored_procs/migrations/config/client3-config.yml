@@ -1,0 +1,13 @@
+config-version: 2
+
+schemachange:
+
+  vars:
+   target_database: GOLD
+   taget_schema: DEV
+   client_prefix: PK
+
+
+  create-change-history-table: true
+  change-history-table: 'GOLD.DEV.CHANGE_HISTORY'
+  autocommit: true
