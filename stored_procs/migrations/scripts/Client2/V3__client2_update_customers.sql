@@ -1,5 +1,3 @@
--- Client2 specific: update customer tier based on revenue
-
 
 CREATE OR REPLACE PROCEDURE {{ target_database }}.{{ target_schema }}.{{ client_prefix }}_UPDATE_CUSTOMERS()
 RETURNS STRING
