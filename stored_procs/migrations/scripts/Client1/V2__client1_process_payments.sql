@@ -1,6 +1,7 @@
 -- Client1 specific stored procedure
 -- This proc processes payments with Client1 rules
 
+
 CREATE OR REPLACE PROCEDURE {{ target_database }}.{{ target_schema }}.{{ client_prefix }}_PROCESS_PAYMENTS()
 RETURNS STRING
 LANGUAGE JAVASCRIPT

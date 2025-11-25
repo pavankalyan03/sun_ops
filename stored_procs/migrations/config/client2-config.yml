@@ -6,6 +6,8 @@ schemachange:
    target_database: SILVER
    target_schema: DEV
    client_prefix: PK
+   tier_gold_threshold: 25
+   tier_silver_threshold: 30
 
 
   create-change-history-table: true

@@ -6,6 +6,7 @@ schemachange:
    target_database: BRONZE
    target_schema: DEV
    client_prefix: PK
+   special_flag: ABC
 
 
   create-change-history-table: true
