@@ -1,46 +1,59 @@
-name: Deploy Snowflake with Schemachange
+name: Deploy Migrations
 
 on:
   push:
     branches:
+      - dev
+      - test
       - main
   workflow_dispatch:
 
 jobs:
-  dev:
-    name: Deploy to DEV
+  deploy-dev:
     runs-on: ubuntu-latest
+
+    if: github.ref_name == 'dev'
+    environment: dev
+
+    env:
+      SNOWFLAKE_ACCOUNT: ${{ vars.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_USER: ${{ vars.SNOWFLAKE_USER }}
+      SNOWFLAKE_ROLE: ${{ vars.SNOWFLAKE_ROLE }}
+      SNOWFLAKE_WAREHOUSE: ${{ vars.SNOWFLAKE_WAREHOUSE }}
+      SNOWFLAKE_DATABASE: ${{ vars.SNOWFLAKE_DATABASE }}
+      SNOWFLAKE_SCHEMA: ${{ vars.SNOWFLAKE_SCHEMA }}
+      SNOWFLAKE_AUTHENTICATOR: "snowflake_jwt"
+
+    
+    name: Deploy to DEV
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
-      - name: Install schemachange
-        run: pip install schemachange
-
-      - name: Create connections.toml for DEV
+      - name: Install Schemachange
         run: |
-          cat <<EOF > connections.toml
-          [snowflake]
-          account = "${{ secrets.ACCOUNT }}"
-          user = "PROFESSOR"
-          password = "${{ secrets.PASSWORD }}"
-          role = "${{ secrets.ROLE }}"
-          warehouse = "${{ secrets.WAREHOUSE }}"
-          database = "BRONZE" 
-          schema = "DEV" 
-          EOF
+          python -m pip install --upgrade pip
+          pip install schemachange
 
-      - name: Show connections.toml
+      - name: Create private key file
         run: |
-          pwd
-          ls -l
-          cat connections.toml
+          echo "${{ secrets.PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
 
 
-      - name: Run schemachange on DEV
-        run: schemachange deploy -c schemachange-config.yml --change-history-table BRONZE.DEV.CHANGE_HISTORY --query-tag "schemachange-dev"
+      - name: Deploy nowww
+        run: |
+
+          echo "Deploying stored_procs layer in Dev Env..."
+          schemachange deploy \
+            -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
+            -m "$GITHUB_WORKSPACE/stored_procs/migrations/scripts" \
+            --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
+            --config-file-name schemachange-config.yml \
+            --snowflake-private-key-path private_key.pem \
+            --query-tag "schemachange-stored_procs" \
