@@ -1,6 +1,4 @@
 
-
-
 CREATE OR REPLACE PROCEDURE {{ target_database }}.{{ target_schema }}.CREATE_ORDERS_TABLE()
 RETURNS STRING
 LANGUAGE JAVASCRIPT
