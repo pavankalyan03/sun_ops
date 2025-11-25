@@ -4,7 +4,7 @@ schemachange:
 
   vars:
    target_database: GOLD
-   taget_schema: DEV
+   target_schema: DEV
    client_prefix: PK
 
 
