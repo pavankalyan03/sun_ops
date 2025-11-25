@@ -28,6 +28,8 @@ jobs:
       # ============================================================
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -79,39 +81,46 @@ jobs:
 
 
       # ============================================================
-      # Deploy Common — triggers ALL client configs
+      # Detect changed folders robustly
       # ============================================================
-      - name: Deploy all clients (Common folder changed)
-        if: contains(steps.detect.outputs.folders, 'Common_stored_procs')
+      - name: Detect changed folders
+        id: detect
         run: |
-          CONFIG_DIR="$GITHUB_WORKSPACE/stored_procs/migrations/config"
-          if [ ! -d "$CONFIG_DIR" ]; then
-            echo "ERROR: Config directory missing: $CONFIG_DIR"
-            exit 1
+          echo "Detecting changed folders..."
+
+          # Github provides hashes for the last and new commit
+          BEFORE_SHA="${{ github.event.before }}"
+          AFTER_SHA="${{ github.sha }}"
+
+          echo "Before SHA: $BEFORE_SHA"
+          echo "After SHA:  $AFTER_SHA"
+
+          # Handle case where before sha is all zeros (new branch)
+          if [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
+            echo "First push detected. Using all files."
+            DIFF_FILES=$(git ls-files)
+          else
+            DIFF_FILES=$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA")
           fi
 
-          CLIENT_CONFIGS=("client1-config.yml" "client2-config.yml" "client3-config.yml")
+          echo "Changed files:"
+          echo "$DIFF_FILES"
 
-          for CFG in "${CLIENT_CONFIGS[@]}"; do
-            FILE_PATH="$CONFIG_DIR/$CFG"
+          # Filter only migrations path
+          PROC_FILES=$(echo "$DIFF_FILES" | grep -E '^stored_procs/migrations/scripts/' || true)
 
-            if [ ! -f "$FILE_PATH" ]; then
-              echo "ERROR: Missing configuration file: $FILE_PATH"
-              exit 1
-            fi
+          if [ -z "$PROC_FILES" ]; then
+            echo "No stored procedure changes detected."
+            echo "folders=" >> $GITHUB_OUTPUT
+            exit 0
+          fi
 
-            echo ""
-            echo "===================================================="
-            echo "Deploying for config: $CFG"
-            echo "===================================================="
+          # Extract folder name (5th element)
+          FOLDERS=$(echo "$PROC_FILES" | awk -F'/' '{print $4}' | sort -u | paste -sd "," -)
 
-            schemachange deploy \
-              -f "$GITHUB_WORKSPACE/stored_procs/migrations" \
-              -m "$GITHUB_WORKSPACE/stored_procs/migrations/scripts" \
-              --config-folder "$CONFIG_DIR" \
-              --config-file-name "$CFG" \
-              --snowflake-private-key-path private_key.pem
-          done
+          echo "Detected folders: $FOLDERS"
+          echo "folders=$FOLDERS" >> $GITHUB_OUTPUT
+
 
 
       # ============================================================
