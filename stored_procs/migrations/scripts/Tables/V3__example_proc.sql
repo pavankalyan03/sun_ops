@@ -1,12 +1,10 @@
-CREATE OR REPLACE PROCEDURE BRONZE.DEV.ECW_NIGHTLY_C_UPDATES_004()
+CREATE OR REPLACE PROCEDURE {{ DATABASE }}.{{ SCHEMA }}.ECW_NIGHTLY_C_UPDATES_004()
 RETURNS VARCHAR
 LANGUAGE SQL
 COMMENT='{ \"origin\": \"sf_sc\", \"name\": \"snowconvert\", \"version\": {  \"major\": 1,  \"minor\": 8,  \"patch\": \"0.0\" }, \"attributes\": {  \"component\": \"transact\",  \"convertedOn\": \"06/09/2025\",  \"domain\": \"s4ch\" }}'
 EXECUTE AS CALLER
 AS '
 	DECLARE
-
-
 		--% System Setup %--
 		START_STEP TIMESTAMP_NTZ(3);
 		END_STEP TIMESTAMP_NTZ(3);

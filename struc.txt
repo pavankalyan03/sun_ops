@@ -1,0 +1,20 @@
+Folder PATH listing
+Volume serial number is 2668-D7F1
+C:.
+|   struc.txt
+|   
++---.github
+|   \---workflows
+|           deploy.yml
+|           
+\---stored_procs
+    \---migrations
+        +---config
+        |       schemachange-config.yml
+        |       
+        \---scripts
+            \---V1.0.0
+                    V1__create_customer_table.sql
+                    V2__STORED_PROC.sql
+                    V3__example_proc.sql
+                    
