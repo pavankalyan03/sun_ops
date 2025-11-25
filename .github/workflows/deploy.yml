@@ -90,6 +90,21 @@ jobs:
 
 
 
+      - name: Deploy Common
+        if: contains(steps.detect.outputs.folders, 'Common_stored_procs')
+        run: |
+          for CFG in client1-config.yml client2-config.yml client3-config.yml; do
+            echo "Deploying for config: $CFG"
+            schemachange deploy \
+              -f "$GITHUB_WORKSPACE/stored_procs/migrations/scripts/Common_stored_procs" \
+              -m "$GITHUB_WORKSPACE/stored_procs/migrations/scripts/Common_stored_procs" \
+              --config-folder "$GITHUB_WORKSPACE/stored_procs/migrations/config" \
+              --config-file-name $CFG \
+              --snowflake-private-key-path private_key.pem
+          done
+
+
+
       # ============================================================
       # Deploy for each individual client (only if that folder changed)
       # ============================================================
