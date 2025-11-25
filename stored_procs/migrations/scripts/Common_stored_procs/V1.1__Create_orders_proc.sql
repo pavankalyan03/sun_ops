@@ -1,7 +1,3 @@
--- Common Stored Procedure: Creates a standard Orders table
--- Variables assumed to come from schemachange-config.yml
--- {{ client_prefix }} will be different for each DB.
-
 CREATE OR REPLACE PROCEDURE {{ target_database }}.{{ target_schema }}.CREATE_ORDERS_TABLE()
 RETURNS STRING
 LANGUAGE JAVASCRIPT
