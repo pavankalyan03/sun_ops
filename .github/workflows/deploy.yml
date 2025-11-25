@@ -46,39 +46,6 @@ jobs:
           echo "${{ secrets.PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
 
-      # # ============================================================
-      # # Detect changed folders robustly
-      # # ============================================================
-      # - name: Detect changed folders
-      #   id: detect
-      #   run: |
-      #     echo "Detecting changed folders..."
-
-      #     # fallback for first run where HEAD~1 doesn't exist
-      #     if git rev-parse HEAD~1 >/dev/null 2>&1; then
-      #       DIFF_FILES=$(git diff --name-only HEAD~1 HEAD)
-      #     else
-      #       DIFF_FILES=$(git diff --name-only HEAD)
-      #     fi
-
-      #     echo "Changed files:"
-      #     echo "$DIFF_FILES"
-
-      #     # Filter only stored_procs paths
-      #     PROC_FILES=$(echo "$DIFF_FILES" | grep "stored_procs/migrations/scripts/" || true)
-
-      #     if [ -z "$PROC_FILES" ]; then
-      #       echo "No stored procedure changes detected."
-      #       echo "folders=" >> $GITHUB_OUTPUT
-      #       exit 0
-      #     fi
-
-      #     # Extract client folders (5th segment)
-      #     FOLDERS=$(echo "$PROC_FILES" | awk -F'/' '{print $5}' | sort -u | paste -sd "," -)
-
-      #     echo "Detected folders: $FOLDERS"
-      #     echo "folders=$FOLDERS" >> $GITHUB_OUTPUT
-
 
       # ============================================================
       # Detect changed folders robustly
@@ -127,7 +94,7 @@ jobs:
       # Deploy for each individual client (only if that folder changed)
       # ============================================================
       - name: Deploy Client1
-        if: contains(steps.detect.outputs.folders, 'Client1')
+        if: contains(steps.detect.outputs.folders, 'Client1') || contains(steps.detect.outputs.folders, 'Common_stored_procs')
         run: |
           CONFIG="$GITHUB_WORKSPACE/stored_procs/migrations/config/client1-config.yml"
           if [ ! -f "$CONFIG" ]; then
@@ -144,7 +111,7 @@ jobs:
             --snowflake-private-key-path private_key.pem
 
       - name: Deploy Client2
-        if: contains(steps.detect.outputs.folders, 'Client2')
+        if: contains(steps.detect.outputs.folders, 'Client2') || contains(steps.detect.outputs.folders, 'Common_stored_procs')
         run: |
           CONFIG="$GITHUB_WORKSPACE/stored_procs/migrations/config/client2-config.yml"
           if [ ! -f "$CONFIG" ]; then
@@ -161,7 +128,7 @@ jobs:
             --snowflake-private-key-path private_key.pem
 
       - name: Deploy Client3
-        if: contains(steps.detect.outputs.folders, 'Client3')
+        if: contains(steps.detect.outputs.folders, 'Client3') || contains(steps.detect.outputs.folders, 'Common_stored_procs')
         run: |
           CONFIG="$GITHUB_WORKSPACE/stored_procs/migrations/config/client3-config.yml"
           if [ ! -f "$CONFIG" ]; then
