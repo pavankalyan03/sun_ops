@@ -1,0 +1,14 @@
+config-version: 2
+
+schemachange:
+
+  vars:
+   target_database: BRONZE
+   target_schema: DEV
+   client_prefix: PK
+   special_flag: ABC
+
+
+  create-change-history-table: true
+  change-history-table: 'BRONZE.DEV.CHANGE_HISTORY'
+  autocommit: true
